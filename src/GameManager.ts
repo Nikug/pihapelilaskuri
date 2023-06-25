@@ -123,3 +123,14 @@ export const endGame = () => {
   setGame(newGame())
   putGameToStorage(game)
 }
+
+export const resetScore = () => {
+  setGame(
+    produce((current) => {
+      const players = Object.values(current.players)
+      const resetPlayers = players.map((player) => ({ ...player, score: 0, misses: 0 }))
+      resetPlayers.forEach((player) => (current.players[player.id] = player))
+      return current
+    })
+  )
+}

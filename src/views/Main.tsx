@@ -9,6 +9,7 @@ import {
   isGameState,
   isPlayersState,
   randomizePlayerOrder,
+  resetScore,
   setGameState,
   startGame,
 } from '../GameManager'
@@ -60,8 +61,9 @@ export const Main: Component = () => {
       title: 'Toiminnot',
       hideOk: true,
       content: (closeModal) => (
-        <div class="flex flex-col justify-center items-center gap-8 pb-16">
+        <div class="flex flex-col justify-center items-center gap-8 pb-16 px-8">
           <Button
+            class="w-full"
             text="Muokkaa pelaajia"
             onClick={() => {
               setGameState('players')
@@ -71,12 +73,31 @@ export const Main: Component = () => {
           <TextButton
             danger
             border
-            text="Nollaa peli"
+            class="w-full"
+            text="Nollaa pisteet"
             onClick={() => {
               closeModal()
               createModal({
-                title: 'Haluatko varmasti nollata pelin?',
+                title: 'Haluatko varmasti nollata pelaajien pisteet?',
                 okText: 'Nollaa',
+                content: () => <div />,
+                onOk: () => {
+                  resetScore()
+                  closeModal()
+                },
+              })
+            }}
+          />
+          <TextButton
+            danger
+            border
+            class="w-full"
+            text="Päätä peli"
+            onClick={() => {
+              closeModal()
+              createModal({
+                title: 'Haluatko varmasti päättää pelin? Tämä poistaa kaikki pelaajat pelistä.',
+                okText: 'Päätä',
                 content: () => <div />,
                 onOk: () => {
                   endGame()
