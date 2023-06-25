@@ -133,4 +133,5 @@ export const resetScore = () => {
       return current
     })
   )
+  putGameToStorage(game)
 }
