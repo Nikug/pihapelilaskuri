@@ -79,6 +79,16 @@ export const setGameState = (state: State) => {
   putGameToStorage(game)
 }
 
+export const setPlayerName = (id: string, name: string) => {
+  setGame(
+    produce((current) => {
+      current.players[id].name = name
+      return current
+    })
+  )
+  putGameToStorage(game)
+}
+
 export const setPlayerScore = (id: string, value: number) => {
   setGame(
     produce((current) => {
